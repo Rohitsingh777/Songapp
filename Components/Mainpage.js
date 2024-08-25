@@ -12,16 +12,19 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Spinner from 'react-native-loading-spinner-overlay';
+
 const screenWidth = Dimensions.get("window").width;
 
 export default function MainPage({ navigation }) {
   const [data, setData] = useState([]);
+  const [loading , setloading] = useState(true)
   const [refreshing, setrefreshing] = useState(false);
   const handleNavigate = (id) => {
-    // Pass the id when navigating
     navigation.navigate("Song", { id });
   };
   const Getfunction = async () => {
+    setloading(true)
     try {
       const response = await axios.get(
         "https://itunes.apple.com/search?term=Justin+beiber"
@@ -29,20 +32,34 @@ export default function MainPage({ navigation }) {
       setData(response.data.results);
       console.log(`data was set sucessfully `);
     } catch (error) {
-      console.error("Error fetching data:", error); // More informative error handling
-      setData({ message: "Failed to load data" }); // Provide a user-friendly message
+      console.error("Error fetching data:", error);
+      setData({ message: "Failed to load data" }); 
+    }finally{
+        setloading(false)
     }
   };
   const onRefresh = () => {
+    setloading(true)
     setrefreshing(true);
     Getfunction();
     console.log(`refresh complete`);
     setrefreshing(false);
+    setloading(false)
   };
   useEffect(() => {
     Getfunction();
   }, []);
 
+
+  if (loading){
+   return(
+    <Spinner
+          visible={true}
+          textContent={'Loading...'}
+          textStyle={{color: 'white'}}
+        />
+   )
+  }
   return (
     <ScrollView
       refreshControl={
@@ -68,7 +85,7 @@ export default function MainPage({ navigation }) {
               />
               <View style={styles.desc}>
                 <Text
-                  numberOfLines={1} // Limits the text to one line
+                  numberOfLines={1} 
                   ellipsizeMode="tail"
                   style={styles.trackName}
                 >
@@ -78,8 +95,7 @@ export default function MainPage({ navigation }) {
                   {el.trackExplicitness == "explicit" ? (
                     <View style={styles.explicitview}>
                       <Text
-                        numberOfLines={1} // Limits the text to one line
-                        //    ellipsizeMode="tail"
+                        numberOfLines={1} 
                         style={styles.explicit}
                       >
                         {"E"}
@@ -88,15 +104,10 @@ export default function MainPage({ navigation }) {
                   ) : (
                     <></>
                   )}
-                  {/* <Text 
-                    numberOfLines={1} // Limits the text to one line
-                //    ellipsizeMode="tail"  
-                    style={styles.explicit}>
-                    {el.trackExplicitness == 'explicit' ? 'E': 'Clean'}
-                    </Text> */}
+                 
 
                   <Text
-                    numberOfLines={1} // Limits the text to one line
+                    numberOfLines={1}
                     ellipsizeMode="tail"
                     style={styles.artist}
                   >
@@ -106,7 +117,7 @@ export default function MainPage({ navigation }) {
               </View>
             </View>
 
-            {/* <Text>{`\n`}</Text> */}
+          
           </TouchableOpacity>
         );
       })}
@@ -116,10 +127,7 @@ export default function MainPage({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
-    //   flex: 1,
     backgroundColor: "#353636",
-    //   alignItems: 'center',
-    //   justifyContent: 'center',
     height: 70,
     width: Dimensions.get("window").width,
   },
@@ -130,7 +138,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   trackview: {
-    // flex : 1 ,
+   
     flexDirection: "row",
     padding: 5,
     width: "100%",
@@ -152,8 +160,6 @@ const styles = StyleSheet.create({
   explicit: {
     color: "black",
     fontSize: 12,
-    // backgroundColor: "grey",
-    // minWidth : ,
     padding: 2,
     borderRadius: 40,
   },

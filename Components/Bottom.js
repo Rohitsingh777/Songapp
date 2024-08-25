@@ -39,7 +39,7 @@ export default function Bottom({ gener, list }) {
                 Linking.openURL(`${item?.url}`);
               }}
               style={{
-                height: 200,
+                height: 300,
                 width: "100%",
                 justifyContent: "center",
                 alignContent: "center",
@@ -48,7 +48,7 @@ export default function Bottom({ gener, list }) {
             >
               <Image
                 source={{ uri: item.image }}
-                style={{ width: "90%", height: 200, resizeMode: "cover" }}
+                style={{ width: "90%", height: 250, resizeMode: "cover" }}
               />
             </TouchableOpacity>
             <Text
