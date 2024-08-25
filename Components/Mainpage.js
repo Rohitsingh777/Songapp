@@ -11,15 +11,15 @@ import {
   RefreshControl,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import axios from "axios"; // Assuming axios is installed
+import axios from "axios";
 const screenWidth = Dimensions.get("window").width;
 
 export default function MainPage({ navigation }) {
   const [data, setData] = useState([]);
-  const [refreshing , setrefreshing ] = useState(false)
+  const [refreshing, setrefreshing] = useState(false);
   const handleNavigate = (id) => {
     // Pass the id when navigating
-    navigation.navigate('Song', { id });
+    navigation.navigate("Song", { id });
   };
   const Getfunction = async () => {
     try {
@@ -27,35 +27,37 @@ export default function MainPage({ navigation }) {
         "https://itunes.apple.com/search?term=Justin+beiber"
       );
       setData(response.data.results);
-      console.log(`data was set sucessfully `)
+      console.log(`data was set sucessfully `);
     } catch (error) {
       console.error("Error fetching data:", error); // More informative error handling
       setData({ message: "Failed to load data" }); // Provide a user-friendly message
     }
   };
-  const onRefresh  =()=>{
-    setrefreshing(true)
-Getfunction();
-console.log(`refresh complete`)
-setrefreshing(false)
-  }
+  const onRefresh = () => {
+    setrefreshing(true);
+    Getfunction();
+    console.log(`refresh complete`);
+    setrefreshing(false);
+  };
   useEffect(() => {
     Getfunction();
   }, []);
 
   return (
-    <ScrollView 
-    refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />
-    }
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
     >
       {data.map((el) => {
         return (
-          <TouchableOpacity style={styles.container} 
-          onPress={()=>{handleNavigate(el?.trackId)}}>
+          <TouchableOpacity
+          key={el?.trackId}
+            style={styles.container}
+            onPress={() => {
+              handleNavigate(el?.trackId);
+            }}
+          >
             <View style={styles.trackview}>
               <Image
                 style={styles.Image}
@@ -149,7 +151,7 @@ const styles = StyleSheet.create({
   },
   explicit: {
     color: "black",
-    fontSize : 12 ,
+    fontSize: 12,
     // backgroundColor: "grey",
     // minWidth : ,
     padding: 2,
@@ -161,11 +163,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
   },
-  explicitview : {
-    width : 15 ,
-    borderRadius : 4 ,
-    backgroundColor : 'grey' , 
-    justifyContent : "center"  , 
-    alignItems : 'center'
-  }
+  explicitview: {
+    width: 15,
+    borderRadius: 4,
+    backgroundColor: "grey",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
