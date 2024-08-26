@@ -10,9 +10,9 @@ This is a React Native application that displays a list of songs and provides so
 - Cross-platform support (iOS and Android).
 
 ## Screenshots
-<img src="./Screenshots/Firstpage.png" alt="Screenshot 1" width="50%"/>
-<img src="./Screenshots/Songpage.png" alt="Screenshot 2" width="50%"/>
-<img src="./Screenshots/Recomendation.png" alt="Screenshot 3" width="50%"/>
+<img src="./Screenshots/Firstpage.png" alt="Screenshot 1" width="30%"/>
+<img src="./Screenshots/Songpage.png" alt="Screenshot 2" width="30%"/>
+<img src="./Screenshots/Recomendation.png" alt="Screenshot 3" width="30%"/>
 
 ## Installation and Setup
 
