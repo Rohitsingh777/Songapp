@@ -1,4 +1,4 @@
-# Songs and Recommendations App
+d# Songs and Recommendations App
 
 This is a React Native application that displays a list of songs and provides song recommendations based on user preferences. The app is designed to deliver an intuitive and engaging music experience, with easy navigation and personalized suggestions.
 
@@ -11,10 +11,9 @@ This is a React Native application that displays a list of songs and provides so
 
 ## Screenshots
 
-![Screenshot 1](.Screenshots/Firstpage.png)
-![Screenshot 2](.Screenshots/Songpage.png)
-![Screenshot 3](.Screenshots/Recomendation.png)
-
+![Screenshot 1](./Screenshots/Firstpage.png)
+![Screenshot 2](./Screenshots/Songpage.png)
+![Screenshot 3](./Screenshots/Recomendation.png)
 
 ## Installation and Setup
 
